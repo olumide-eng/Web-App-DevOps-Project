@@ -1,6 +1,6 @@
 
 trigger:
-- main
+- feature-151
 
 pool:
   vmImage: ubuntu-latest
