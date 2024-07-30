@@ -9,12 +9,16 @@ import os
 # Initialise Flask App
 app = Flask(__name__)
 
-# database connection 
-server = 'devops-project-server.database.windows.net'
-database = 'orders-db'
-username = 'maya'
-password = 'AiCore1237'
+# Database connection using environment variables
+server = os.getenv('DB_SERVER')
+database = os.getenv('DB_DATABASE')
+username = os.getenv('DB_USERNAME')
+password = os.getenv('DB_PASSWORD')
 driver= '{ODBC Driver 18 for SQL Server}'
+
+# Ensure all required variables are set
+if not all([server, database, username, password, driver]):
+    raise ValueError("Database configuration is incomplete!")
 
 # Create the connection string
 connection_string=f'Driver={driver};\
