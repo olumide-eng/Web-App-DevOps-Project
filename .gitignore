@@ -1,1 +1,4 @@
 secrets.yaml
+check_population_script.py
+delete_script.py
+populate_db.py
