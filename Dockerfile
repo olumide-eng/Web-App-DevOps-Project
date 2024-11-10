@@ -33,8 +33,3 @@ CMD ["flask", "run", "--host=0.0.0.0", "--port=5000"]
 
 
 
-# docker run -e DB_SERVER=aicore-devops-project-server.database.windows.net \
-#            -e DB_DATABASE=orders-db \
-#            -e DB_USERNAME=maya \
-#            -e DB_PASSWORD=AiCore1237 \
-#            -p 5050:5000 flask-app
