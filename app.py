@@ -2,8 +2,6 @@ from flask import Flask, render_template, request, redirect, url_for
 from sqlalchemy import create_engine, Column, Integer, String, DateTime
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import create_engine
-import pyodbc
 import os
 
 # Initialise Flask App
@@ -14,21 +12,21 @@ server = os.getenv('DB_SERVER')
 database = os.getenv('DB_DATABASE')
 username = os.getenv('DB_USERNAME')
 password = os.getenv('DB_PASSWORD')
-driver= '{ODBC Driver 18 for SQL Server}'
+driver = '{ODBC Driver 18 for SQL Server}'
 
 # Ensure all required variables are set
 if not all([server, database, username, password, driver]):
     raise ValueError("Database configuration is incomplete!")
 
 # Create the connection string
-connection_string=f'Driver={driver};\
-    Server=tcp:{server},1433;\
-    Database={database};\
-    Uid={username};\
-    Pwd={password};\
-    Encrypt=yes;\
-    TrustServerCertificate=no;\
-    Connection Timeout=30;'
+connection_string = f'Driver={driver};' \
+                    f'Server=tcp:{server},1433;' \
+                    f'Database={database};' \
+                    f'Uid={username};' \
+                    f'Pwd={password};' \
+                    f'Encrypt=yes;' \
+                    f'TrustServerCertificate=no;' \
+                    f'Connection Timeout=30;'
 
 # Create the engine to connect to the database
 engine = create_engine("mssql+pyodbc:///?odbc_connect={}".format(connection_string))
@@ -51,11 +49,10 @@ class Order(Base):
     order_date = Column('Order Date', DateTime)
     shipping_date = Column('Shipping Date', DateTime)
 
-# define routes
-# route to display orders
+# Define routes
+# Route to display orders
 @app.route('/')
 def display_orders():
-
     page = int(request.args.get('page', 1))
     rows_per_page = 25
 
@@ -78,7 +75,7 @@ def display_orders():
 
     return render_template('orders.html', orders=current_page_orders, page=page, total_pages=total_pages)
 
-# route to add orders
+# Route to add orders
 @app.route('/add_order', methods=['POST'])
 def add_order():
     date_uuid = request.form.get('date_uuid')
@@ -111,6 +108,7 @@ def add_order():
 
     return redirect(url_for('display_orders'))
 
-# run the app
+
+# Run the app
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
