@@ -3,3 +3,6 @@ check_population_script.py
 delete_script.py
 populate_db.py
 .terraform/
+modules/aks-cluster-module/terraform.tfvars
+terraform.tfstate
+terraform.tfstate.backup
