@@ -37,9 +37,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
     outbound_type     = "loadBalancer"
   }
 
- 
   tags = {
     environment = "dev"
   }
 }
-
